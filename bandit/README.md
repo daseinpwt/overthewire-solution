@@ -167,9 +167,9 @@ First use `xxd -r` to reverse the hexdump to its original file.
 Then repeat the following procedure until we get a ASCII text file:
 1. use `file` to get the content type of the (last obtained) file
 2. if the content type is `ASCII text`, then `cat`to get the password. END
-3. if the content type is `gzip compressed data`, then `gunzip {filename}.gz`. GOTO 1
+3. if the content type is `gzip compressed data`, then `gunzip {filename}.gz`. GOTO 1 \
   Note that the file must be renamed to `*.gz`.
-4. if the content type is `bzip2 compressed data`, then `bunzip2 {filename}.bz2`. GOTO 1
+4. if the content type is `bzip2 compressed data`, then `bunzip2 {filename}.bz2`. GOTO 1 \
   The `bunzip2` command does not require a file with name in `*.bz2` format, but the output filename will be different for different types of input filenames. For `{filename}.bz2`, the output filename is `{filename}`. Check `man bzip2` for other cases.
 5. if the content type is `POSIX tar archive (GNU)`, then `tar -xf {filename}`. GOTO 1
 
