@@ -177,9 +177,27 @@ Then repeat the following procedure until we get a ASCII text file:
 passwd: 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
 
 ### solution
+Using `-i` option of `ssh` to provide private SSH key.
 ```
 bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
 # logged in the server as the user bandit14
 bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+```
+
+## level 15
+passwd: BfMYroe26WYalil77FoDi9qh59eK5xNr
+
+### solution
+Using `telnet` to communicate with process listening on specific port.
+```
+bandit14@bandit:~$ telnet localhost 30000
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+Correct!
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+
+Connection closed by foreign host.
 ```
