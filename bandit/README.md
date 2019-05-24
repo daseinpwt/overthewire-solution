@@ -1,10 +1,9 @@
 # Bandit
-```
-server: bandit.labs.overthewire.org
-port: 2220
-user: bandit{level}
+
+server: bandit.labs.overthewire.org \
+port: 2220 \
+user: bandit{level} \
 ssh login: ssh -p 2220 bandit{level}@bandit.labs.overthewire.org
-```
 
 ## level 0
 passwd: bandit0
