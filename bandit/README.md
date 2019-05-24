@@ -12,7 +12,7 @@ passwd: bandit0
 ## level 1
 passwd: boJ9jbbUNNfktd78OOpsqOltutMc3MY1
 
-solution:
+###solution
 ```
 bandit0@bandit:~$ cat readme
 boJ9jbbUNNfktd78OOpsqOltutMc3MY1
@@ -21,7 +21,7 @@ boJ9jbbUNNfktd78OOpsqOltutMc3MY1
 ## level 2
 passwd: CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
 
-solution:
+###solution  
 Using `cat -` does not work, because `-` is recognized as the standard input.
 Using full path to access the file named '-'.
 ```
@@ -32,7 +32,7 @@ CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
 ## level 3
 passwd: UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
 
-solution:
+###solution
 Using `\` to escape the space character.
 ```
 bandit2@bandit:~$ cat spaces\ in\ this\ filename
@@ -42,7 +42,7 @@ UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
 ## level 4
 passwd: pIwrPrtPN36QITSp3EQaw936yaFoFgAB
 
-solution:
+###solution
 Using `ls -a` to show the hidden files.
 ```
 bandit3@bandit:~/inhere$ ls -a
@@ -54,7 +54,7 @@ pIwrPrtPN36QITSp3EQaw936yaFoFgAB
 ## level 5
 passwd: koReBOKuIDDepwhWk7jZC0RTdopnAYKh
 
-solution:
+###solution
 Using `file` command to find the type of file content.
 ```
 bandit4@bandit:~/inhere$ ls
@@ -77,7 +77,7 @@ koReBOKuIDDepwhWk7jZC0RTdopnAYKh
 ## level 6
 passwd: DXjZPULLxYr17uwoI01bNLQbtFemEgo7
 
-solution:
+###solution
 ```
 bandit5@bandit:~/inhere$ ls
 maybehere00  maybehere02  maybehere04  maybehere06  maybehere08  maybehere10  maybehere12  maybehere14  maybehere16  maybehere18
@@ -91,7 +91,7 @@ DXjZPULLxYr17uwoI01bNLQbtFemEgo7
 ## level 7
 passwd: HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
 
-solution:
+###solution
 Using '-user' and '-group' options of `find` command.
 Using '2>/dev/null' to filter out the errors due to permission.
 ```
@@ -104,7 +104,7 @@ HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
 ## level 8
 passwd: cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 
-solution:
+###solution
 Using `grep`.
 ```
 bandit7@bandit:~$ cat data.txt | grep 'millionth'
@@ -114,7 +114,7 @@ millionth	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 ## level 9
 passwd: UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
 
-solution:
+###solution
 Using `uniq` to filter out uniquely presented line.
 Note that `uniq` only check adjecent lines, so the lines must be sorted by `sort` in advance.
 ```
@@ -125,7 +125,7 @@ UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
 ## level 10
 passwd: truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
 
-solution:
+###solution
 Using `strings` to filter out human-readable strings.
 Using `-e` option of `grep` to filter out strings beginning with several `=` characters.
 ```
@@ -141,7 +141,7 @@ bandit9@bandit:~$ strings data.txt | grep -e '^==*'
 ## level 11
 passwd: IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
 
-solution:
+###solution
 Using `base64 -d` to decode base64-encoded string.
 ```
 bandit10@bandit:~$ cat data.txt | base64 -d
@@ -151,7 +151,7 @@ The password is IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
 ## level 12
 passwd: 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
 
-solution:
+###solution
 Using `tr` to translate the string.
 Check `man tr` for how to specify the translation.
 ```
@@ -162,7 +162,7 @@ The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
 ## level 13
 passwd: 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
 
-solution:
+###solution
 First use `xxd -r` to reverse the hexdump to its original file.
 Then repeat the following procedure until we get a ASCII text file:
 1. use `file` to get the content type of the (last obtained) file
