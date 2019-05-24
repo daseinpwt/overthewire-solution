@@ -172,3 +172,14 @@ Then repeat the following procedure until we get a ASCII text file:
 4. if the content type is `bzip2 compressed data`, then `bunzip2 {filename}.bz2`. GOTO 1
   The `bunzip2` command does not require a file with name in `*.bz2` format, but the output filename will be different for different types of input filenames. For `{filename}.bz2`, the output filename is `{filename}`. Check `man bzip2` for other cases.
 5. if the content type is `POSIX tar archive (GNU)`, then `tar -xf {filename}`. GOTO 1
+
+## level 14
+passwd: 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+
+### solution
+```
+bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
+# logged in the server as the user bandit14
+bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+```
