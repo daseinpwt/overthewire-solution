@@ -251,7 +251,7 @@ vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
 ```
 
 ### solution
-First using `nmap` to scan open ports. Then using `openssl s_client` to test if the processes speak SSL.
+First using `nmap` with `-p` option to scan open ports in a given range. Then using `openssl s_client` to test if the processes speak SSL.
 ```
 bandit16@bandit:~$ nmap -p31000-32000 localhost
 
@@ -307,3 +307,34 @@ vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
 ```
 
 ## level 18
+passwd: kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+
+### solution
+Using `diff` to check the differences between two text files.
+```
+bandit17@bandit:~$ diff passwords.old passwords.new
+42c42
+< hlbSBPAWJmL6WFDb06gpTx1pPButblOA
+---
+> kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+```
+
+## level 19
+passwd: IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
+
+### solution:
+From `man ssh`:
+```
+ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface] [-b bind_address] [-c cipher_spec] [-D [bind_address:]port]
+         [-E log_file] [-e escape_char] [-F configfile] [-I pkcs11] [-i identity_file] [-J destination] [-L address]
+         [-l login_name] [-m mac_spec] [-O ctl_cmd] [-o option] [-p port] [-Q query_option] [-R address] [-S ctl_path]
+         [-W host:port] [-w local_tun[:remote_tun]] destination [command]
+```
+We can pass the command `cat ~/readme` to get the password:
+```
+❡ ssh -p 2220 bandit18@bandit.labs.overthewire.org "cat ~/readme"
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+bandit18@bandit.labs.overthewire.org's password:
+IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
+```
