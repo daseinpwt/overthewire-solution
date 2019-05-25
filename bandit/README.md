@@ -21,7 +21,7 @@ boJ9jbbUNNfktd78OOpsqOltutMc3MY1
 passwd: CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
 
 ### solution  
-Use full path to access the file named '-'.
+Use full path to access the file named '-'. \
 _Note_: `cat -` does not work, because `-` is recognized as the standard input.
 ```
 bandit1@bandit:~$ cat ./-
@@ -54,7 +54,7 @@ pIwrPrtPN36QITSp3EQaw936yaFoFgAB
 passwd: koReBOKuIDDepwhWk7jZC0RTdopnAYKh
 
 ### solution
-Use `file` command to find the type of file content.
+Use `file` command to find the type of the file content.
 ```
 bandit4@bandit:~/inhere$ ls
 -file00  -file01  -file02  -file03  -file04  -file05  -file06  -file07  -file08  -file09
@@ -77,6 +77,7 @@ koReBOKuIDDepwhWk7jZC0RTdopnAYKh
 passwd: DXjZPULLxYr17uwoI01bNLQbtFemEgo7
 
 ### solution
+Use `find` with `-size` and `! -executable` options.
 ```
 bandit5@bandit:~/inhere$ ls
 maybehere00  maybehere02  maybehere04  maybehere06  maybehere08  maybehere10  maybehere12  maybehere14  maybehere16  maybehere18
@@ -91,7 +92,7 @@ DXjZPULLxYr17uwoI01bNLQbtFemEgo7
 passwd: HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
 
 ### solution
-Use '-user' and '-group' options of `find` command.
+Use `-user` and `-group` options of `find` command. \
 Use '2>/dev/null' to filter out the errors due to permission.
 ```
 bandit6@bandit:~$ find / -user bandit7 -group bandit6 -size 33c 2>/dev/null
@@ -104,7 +105,7 @@ HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
 passwd: cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 
 ### solution
-Use `grep`.
+Use unix pipe and `grep`.
 ```
 bandit7@bandit:~$ cat data.txt | grep 'millionth'
 millionth	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
@@ -114,8 +115,8 @@ millionth	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 passwd: UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
 
 ### solution
-Use `uniq` to filter out uniquely presented line.
-Note that `uniq` only check adjecent lines, so the lines must be sorted by `sort` in advance.
+Use `uniq` to filter out uniquely presented line. \
+_Note_: `uniq` only check adjecent lines, so the lines must be sorted by `sort` in advance.
 ```
 bandit8@bandit:~$ cat data.txt | sort | uniq -u
 UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
@@ -125,7 +126,7 @@ UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
 passwd: truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
 
 ### solution
-Use `strings` to filter out human-readable strings.
+Use `strings` to filter out human-readable strings. \
 Use `-e` option of `grep` to filter out strings beginning with several `=` characters.
 ```
 bandit9@bandit:~$ strings data.txt | grep -e '^==*'
@@ -151,7 +152,7 @@ The password is IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
 passwd: 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
 
 ### solution
-Use `tr` to translate the string.
+Use `tr` to translate the string. \
 Check `man tr` for how to specify the translation.
 ```
 bandit11@bandit:~$ cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
@@ -162,7 +163,7 @@ The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
 passwd: 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
 
 ### solution
-First use `xxd -r` to reverse the hexdump to its original file.
+First use `xxd -r` to reverse the hexdump to its original file. \
 Then repeat the following procedure until we get a ASCII text file:
 1. use `file` to get the content type of the (last obtained) file
 2. if the content type is `ASCII text`, then `cat`to get the password. END
@@ -176,7 +177,7 @@ Then repeat the following procedure until we get a ASCII text file:
 passwd: 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
 
 ### solution
-Use `-i` option of `ssh` to provide private SSH key.
+Use the `-i` option of `ssh` to provide private SSH key.
 ```
 bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
 # logged in the server as the user bandit14
@@ -188,7 +189,7 @@ bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
 passwd: BfMYroe26WYalil77FoDi9qh59eK5xNr
 
 ### solution
-Use `telnet` to communicate with process listening on specific port.
+Use `telnet` to communicate with process listening on a specific port.
 ```
 bandit14@bandit:~$ telnet localhost 30000
 Trying 127.0.0.1...
@@ -205,7 +206,7 @@ Connection closed by foreign host.
 passwd: cluFn7wTiGryunymYOu4RcffSxQluehd
 
 ### solution
-Use `openssl s_client` to communicate with process using SSL encryption.
+Use `openssl s_client` to communicate with processes using SSL encryption.
 ```
 bandit15@bandit:~$ openssl s_client -connect localhost:30001 -quiet
 depth=0 CN = localhost
@@ -333,6 +334,6 @@ GbKksEFF4yrVs6il55v6gwY5aVje5f0j
 passwd: gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
 
 ### solution
-Use `nc` with option `-l` to start a tcp network daemon.
+Use `nc` with option `-l` to start a tcp network daemon. \
 Use `tmux` for effective client-server messaging.
 ![Level 21](level21.png)
