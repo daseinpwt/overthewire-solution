@@ -223,7 +223,7 @@ cluFn7wTiGryunymYOu4RcffSxQluehd
 passwd: xLYVMN9WE5zQ5vHacb0sZEVqbrp7nBTn
 
 ### solution
-1. Use `nmap` with `-p` option to scan open ports in a given range. \
+1. Use `nmap` with `-p` option to scan open ports in a given range.
 2. use `openssl s_client` to test if the processes speak SSL.
 ```
 bandit16@bandit:~$ nmap -p31000-32000 localhost
