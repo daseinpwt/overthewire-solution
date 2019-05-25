@@ -322,7 +322,7 @@ bandit17@bandit:~$ diff passwords.old passwords.new
 ## level 19
 passwd: IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
 
-### solution:
+### solution
 From `man ssh`:
 ```
 ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface] [-b bind_address] [-c cipher_spec] [-D [bind_address:]port]
@@ -338,3 +338,21 @@ This is a OverTheWire game server. More information on http://www.overthewire.or
 bandit18@bandit.labs.overthewire.org's password:
 IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
 ```
+
+## level 20
+passwd: GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+
+### solution
+Google `setuid` to understand how the `./bandit20-do` works.
+```
+bandit19@bandit:~$ ./bandit20-do cat /etc/bandit_pass/bandit20
+GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+```
+
+## level 21
+passwd: gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+
+### solution
+Using `nc` with option `-l` to start a tcp network daemon.
+Using `tmux` for effective client-server messaging.
+![Level 21](level21.png)
