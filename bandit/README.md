@@ -21,8 +21,8 @@ boJ9jbbUNNfktd78OOpsqOltutMc3MY1
 passwd: CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
 
 ### solution  
-Use `cat -` does not work, because `-` is recognized as the standard input.
 Use full path to access the file named '-'.
+_Note_: `cat -` does not work, because `-` is recognized as the standard input.
 ```
 bandit1@bandit:~$ cat ./-
 CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
