@@ -21,8 +21,8 @@ boJ9jbbUNNfktd78OOpsqOltutMc3MY1
 passwd: CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
 
 ### solution  
-Using `cat -` does not work, because `-` is recognized as the standard input.
-Using full path to access the file named '-'.
+Use `cat -` does not work, because `-` is recognized as the standard input.
+Use full path to access the file named '-'.
 ```
 bandit1@bandit:~$ cat ./-
 CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
@@ -32,7 +32,7 @@ CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
 passwd: UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
 
 ### solution
-Using `\` to escape the space character.
+Use `\` to escape the space character.
 ```
 bandit2@bandit:~$ cat spaces\ in\ this\ filename
 UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
@@ -42,7 +42,7 @@ UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
 passwd: pIwrPrtPN36QITSp3EQaw936yaFoFgAB
 
 ### solution
-Using `ls -a` to show the hidden files.
+Use `ls -a` to show the hidden files.
 ```
 bandit3@bandit:~/inhere$ ls -a
 .  ..  .hidden
@@ -54,7 +54,7 @@ pIwrPrtPN36QITSp3EQaw936yaFoFgAB
 passwd: koReBOKuIDDepwhWk7jZC0RTdopnAYKh
 
 ### solution
-Using `file` command to find the type of file content.
+Use `file` command to find the type of file content.
 ```
 bandit4@bandit:~/inhere$ ls
 -file00  -file01  -file02  -file03  -file04  -file05  -file06  -file07  -file08  -file09
@@ -91,8 +91,8 @@ DXjZPULLxYr17uwoI01bNLQbtFemEgo7
 passwd: HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
 
 ### solution
-Using '-user' and '-group' options of `find` command.
-Using '2>/dev/null' to filter out the errors due to permission.
+Use '-user' and '-group' options of `find` command.
+Use '2>/dev/null' to filter out the errors due to permission.
 ```
 bandit6@bandit:~$ find / -user bandit7 -group bandit6 -size 33c 2>/dev/null
 /var/lib/dpkg/info/bandit7.password
@@ -104,7 +104,7 @@ HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
 passwd: cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 
 ### solution
-Using `grep`.
+Use `grep`.
 ```
 bandit7@bandit:~$ cat data.txt | grep 'millionth'
 millionth	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
@@ -114,7 +114,7 @@ millionth	cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 passwd: UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
 
 ### solution
-Using `uniq` to filter out uniquely presented line.
+Use `uniq` to filter out uniquely presented line.
 Note that `uniq` only check adjecent lines, so the lines must be sorted by `sort` in advance.
 ```
 bandit8@bandit:~$ cat data.txt | sort | uniq -u
@@ -125,8 +125,8 @@ UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
 passwd: truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
 
 ### solution
-Using `strings` to filter out human-readable strings.
-Using `-e` option of `grep` to filter out strings beginning with several `=` characters.
+Use `strings` to filter out human-readable strings.
+Use `-e` option of `grep` to filter out strings beginning with several `=` characters.
 ```
 bandit9@bandit:~$ strings data.txt | grep -e '^==*'
 ========== password
@@ -141,7 +141,7 @@ bandit9@bandit:~$ strings data.txt | grep -e '^==*'
 passwd: IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
 
 ### solution
-Using `base64 -d` to decode base64-encoded string.
+Use `base64 -d` to decode base64-encoded string.
 ```
 bandit10@bandit:~$ cat data.txt | base64 -d
 The password is IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
@@ -151,7 +151,7 @@ The password is IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
 passwd: 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
 
 ### solution
-Using `tr` to translate the string.
+Use `tr` to translate the string.
 Check `man tr` for how to specify the translation.
 ```
 bandit11@bandit:~$ cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
@@ -176,7 +176,7 @@ Then repeat the following procedure until we get a ASCII text file:
 passwd: 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
 
 ### solution
-Using `-i` option of `ssh` to provide private SSH key.
+Use `-i` option of `ssh` to provide private SSH key.
 ```
 bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
 # logged in the server as the user bandit14
@@ -188,7 +188,7 @@ bandit14@bandit:~$ cat /etc/bandit_pass/bandit14
 passwd: BfMYroe26WYalil77FoDi9qh59eK5xNr
 
 ### solution
-Using `telnet` to communicate with process listening on specific port.
+Use `telnet` to communicate with process listening on specific port.
 ```
 bandit14@bandit:~$ telnet localhost 30000
 Trying 127.0.0.1...
@@ -205,7 +205,7 @@ Connection closed by foreign host.
 passwd: cluFn7wTiGryunymYOu4RcffSxQluehd
 
 ### solution
-Using `openssl s_client` to communicate with process using SSL encryption.
+Use `openssl s_client` to communicate with process using SSL encryption.
 ```
 bandit15@bandit:~$ openssl s_client -connect localhost:30001 -quiet
 depth=0 CN = localhost
@@ -219,39 +219,11 @@ cluFn7wTiGryunymYOu4RcffSxQluehd
 ```
 
 ## level 17
-ssh key:
-```
------BEGIN RSA PRIVATE KEY-----
-MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
-imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
-Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
-DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
-JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
-x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
-KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
-J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
-d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
-YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
-vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
-+TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
-8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
-SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
-HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
-SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
-R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
-Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
-R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
-L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
-blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
-YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
-77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
-dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
-vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
------END RSA PRIVATE KEY-----
-```
+passwd: xLYVMN9WE5zQ5vHacb0sZEVqbrp7nBTn
 
 ### solution
-First using `nmap` with `-p` option to scan open ports in a given range. Then using `openssl s_client` to test if the processes speak SSL.
+1. Use `nmap` with `-p` option to scan open ports in a given range. \
+2. use `openssl s_client` to test if the processes speak SSL.
 ```
 bandit16@bandit:~$ nmap -p31000-32000 localhost
 
@@ -306,11 +278,19 @@ vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
 -----END RSA PRIVATE KEY-----
 ```
 
+3. Copy the private key into a file `ssh_key` and use `ssh` with `-i` option to log in as bandit17.
+
+4. Get the password of bandit17.
+```
+bandit17@bandit:~$ cat /etc/bandit_pass/bandit17
+xLYVMN9WE5zQ5vHacb0sZEVqbrp7nBTn
+```
+
 ## level 18
 passwd: kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
 
 ### solution
-Using `diff` to check the differences between two text files.
+Use `diff` to check the differences between two text files.
 ```
 bandit17@bandit:~$ diff passwords.old passwords.new
 42c42
@@ -353,6 +333,6 @@ GbKksEFF4yrVs6il55v6gwY5aVje5f0j
 passwd: gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
 
 ### solution
-Using `nc` with option `-l` to start a tcp network daemon.
-Using `tmux` for effective client-server messaging.
+Use `nc` with option `-l` to start a tcp network daemon.
+Use `tmux` for effective client-server messaging.
 ![Level 21](level21.png)
