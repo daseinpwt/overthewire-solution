@@ -397,7 +397,6 @@ To obtain the password for bandit24, we can write a bash script to copy the pass
 ```
 #!/bin/bash
 cat /etc/bandit_pass/bandit24 > /tmp/hhh123456
-bandit23@bandit:/etc/cron.d$ cat /tmp/hhh123456
 ```
 Don't forget to use `chmod +x` to give the script permission for execution.
 
