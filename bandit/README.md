@@ -446,3 +446,78 @@ However, the daemon on port 30002 was not working... I found one daemon on port 
 bandit24@bandit:~$ for pin in {5588..5706}; do echo "UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ ${pin}"; done | nc localhost 30003
 ```
 ![Level 25 Bug](level25_bug.png)
+
+## level 26 and 27
+level 26 passwd: 5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z \
+level 27 passwd: 3ba3118a22e93127a4ed485be72ef5ea
+
+### solution
+It is the most interesting challenge so far. \
+First check the login shell of bandit26:
+```
+bandit25@bandit:~$ cat /etc/passwd | grep bandit26
+bandit26:x:11026:11026:bandit level 26:/home/bandit26:/usr/bin/showtext
+bandit25@bandit:~$ cat /usr/bin/showtext
+#!/bin/sh
+
+export TERM=linux
+
+more ~/text.txt
+exit 0
+```
+From the bash script we can tell that when bandit26 is logged in, a `more` command will be executed, then the shell will exit. We can try to login in as bandit26:
+```
+bandit25@bandit:~$ ssh -i bandit26.sshkey bandit26@localhost
+Could not create directory '/home/bandit25/.ssh'.
+The authenticity of host 'localhost (127.0.0.1)' can't be established.
+ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/home/bandit25/.ssh/known_hosts).
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+...
+...
+...
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us through IRC on
+  irc.overthewire.org #wargames.
+
+  Enjoy your stay!
+
+  _                     _ _ _   ___   __
+ | |                   | (_) | |__ \ / /
+ | |__   __ _ _ __   __| |_| |_   ) / /_
+ | '_ \ / _` | '_ \ / _` | | __| / / '_ \
+ | |_) | (_| | | | | (_| | | |_ / /| (_) |
+ |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+Connection to localhost closed.
+bandit25@bandit:~$
+```
+The content of `/home/bandit26/text.txt` is
+```
+  _                     _ _ _   ___   __
+ | |                   | (_) | |__ \ / /
+ | |__   __ _ _ __   __| |_| |_   ) / /_
+ | '_ \ / _` | '_ \ / _` | | __| / / '_ \
+ | |_) | (_| | | | | (_| | | |_ / /| (_) |
+ |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+```
+The login shell exited because the `more` command had displayed the whole content of `/home/bandit26/text.txt`. To make the login shell stop at the `more` command, we can __resize the terminal window__. The key idea is that when the content does not fit the terminal window, the `more` command will display the content in pages.
+
+![Level 26 - Resize window](level26_resize_window.png)
+
+When in `more` mode, we can type `v` to enter `vim` editor mode. Note that the shell used by the vim editor is still the login shell. So shell command such as `:!ls` will not work as expected. We can use `:set shell=/bin/bash` to fix that.
+
+Now we should have a shell working and we can get the passwords of level 26 and level 27.
+```
+:!cat /etc/bandit_pass/bandit26
+5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
+
+:!./bandit27-do cat /etc/bandit_pass/bandit27
+3ba3118a22e93127a4ed485be72ef5ea
+```
