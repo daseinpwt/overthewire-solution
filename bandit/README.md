@@ -337,3 +337,99 @@ passwd: gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
 Use `nc` with option `-l` to start a tcp network daemon. \
 Use `tmux` for effective client-server messaging.
 ![Level 21](level21.png)
+
+## level 22
+passwd: Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+
+### solution
+Check the `cron` task for bandit22.
+```
+bandit21@bandit:/etc/cron.d$ cd
+bandit21@bandit:~$ cd /etc/cron.d
+bandit21@bandit:/etc/cron.d$ ls
+cronjob_bandit22  cronjob_bandit23  cronjob_bandit24
+bandit21@bandit:/etc/cron.d$ cat cronjob_bandit22
+@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+bandit21@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit22.sh
+#!/bin/bash
+chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+bandit21@bandit:/etc/cron.d$ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+```
+
+## level 23
+passwd: jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+
+### solution
+Check the `cron` task for bandit23. \
+The script `/usr/bin/cronjob_bandit23.sh` creates an encrypted filename using the username (`$(whoami)`) and copies the password into a file with that name under the folder`/tmp`. The corresponding filename for bandit23 can be obtained by replacing `$myname` in `mytarget` with `bandit23`.
+```
+bandit22@bandit:~$ cd /etc/cron.d
+bandit22@bandit:/etc/cron.d$ ls
+cronjob_bandit22  cronjob_bandit23  cronjob_bandit24
+bandit22@bandit:/etc/cron.d$ cat cronjob_bandit23
+@reboot bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+* * * * * bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+bandit22@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit23.sh
+#!/bin/bash
+
+myname=$(whoami)
+mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+cat /etc/bandit_pass/$myname > /tmp/$mytarget
+bandit22@bandit:/etc/cron.d$ echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+8ca319486bfbbc3663ea0fbe81326349
+bandit22@bandit:/etc/cron.d$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+```
+
+## level 24
+passwd: UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+
+### solution
+Check the `cron` task for bandit24. \
+The script `/usr/bin/cronjob_bandit24.sh` executes and deletes all scripts in `/var/spool/bandit24` every minute. \
+To obtain the password for bandit24, we can write a bash script to copy the password into a file under `/tmp` folder.
+```
+#!/bin/bash
+cat /etc/bandit_pass/bandit24 > /tmp/hhh123456
+bandit23@bandit:/etc/cron.d$ cat /tmp/hhh123456
+```
+Don't forget to use `chmod +x` to give the script permission for execution.
+
+The terminal log:
+```
+bandit23@bandit:/etc/cron.d$ cat cronjob_bandit24
+@reboot bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+* * * * * bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+bandit23@bandit:/etc/cron.d$ cat /usr/bin/cronjob_bandit24.sh
+#!/bin/bash
+
+myname=$(whoami)
+
+cd /var/spool/$myname
+echo "Executing and deleting all scripts in /var/spool/$myname:"
+for i in * .*;
+do
+    if [ "$i" != "." -a "$i" != ".." ];
+    then
+	echo "Handling $i"
+	timeout -s 9 60 ./$i
+	rm -f ./$i
+    fi
+done
+
+
+
+bandit23@bandit:/etc/cron.d$ vim /var/spool/bandit24/haha
+bandit23@bandit:/etc/cron.d$ chmod +x /var/spool/bandit24/haha
+bandit23@bandit:/etc/cron.d$ cat /var/spool/bandit24/haha
+#!/bin/bash
+cat /etc/bandit_pass/bandit24 > /tmp/hhh123456
+bandit23@bandit:/etc/cron.d$ cat /tmp/hhh123456
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+```
