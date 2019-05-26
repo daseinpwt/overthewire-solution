@@ -437,7 +437,11 @@ UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
 passwd: uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
 
 ### solution
-The daemon on port 30002 was not working... I found one daemon on port 30003 and after tons of attempts I found that the pin code is `5591`. A strange thing is, the following command will get different result randomly:
+The solution __should be__:
+```
+for pin in {0000..9999}; do echo "UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ ${pin}"; done | nc localhost 30002 | grep -v "Wrong"
+```
+However, the daemon on port 30002 was not working... I found one daemon on port 30003 that seems to be an alternative (someone might find out the port 30002 was not working and rescued the level by uploading his/her implementation). After tons of attempts I found that the pin code is `5591`. A strange thing is, the following command will get different result randomly:
 ```
 bandit24@bandit:~$ for pin in {5588..5706}; do echo "UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ ${pin}"; done | nc localhost 30003
 ```
