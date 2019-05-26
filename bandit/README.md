@@ -432,3 +432,13 @@ cat /etc/bandit_pass/bandit24 > /tmp/hhh123456
 bandit23@bandit:/etc/cron.d$ cat /tmp/hhh123456
 UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
 ```
+
+## level 25
+passwd: uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
+
+### solution
+The daemon on port 30002 was not working... I found one daemon on port 30003 and after tons of attempts I found that the pin code is `5591`. A strange thing is, the following command will get different result randomly:
+```
+bandit24@bandit:~$ for pin in {5588..5706}; do echo "UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ ${pin}"; done | nc localhost 30003
+```
+![Level 25 Bug](level25_bug.png)
