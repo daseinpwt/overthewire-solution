@@ -746,3 +746,57 @@ The latecomers can use `git tag` to find the `secret` tag and use `git show` to 
 
 ### Take-home message
 `git add` will permanently add files/folders to `.git/objects`.
+
+## level 32
+passwd: 56a9bf19c63d650ce78e6ec0354ee45e
+
+### solution
+```
+bandit31@bandit:/tmp/tmp.h5oQZAACwy$ cd repo/
+bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$ ls
+README.md
+bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$ cat README.md
+This time your task is to push a file to the remote repository.
+
+Details:
+    File name: key.txt
+    Content: 'May I come in?'
+    Branch: master
+
+bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$ echo 'May I come in?' > key.txt
+bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$ git add key.txt
+The following paths are ignored by one of your .gitignore files:
+key.txt
+Use -f if you really want to add them.
+bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$ vim .gitignore # remove the line 'key.txt'
+bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$ git add key.txt
+bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$ git commit -m "Add key.txt"
+[master b8c8ade] Add key.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 key.txt
+bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$ git push
+Could not create directory '/home/bandit31/.ssh'.
+
+...
+...
+...
+
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 323 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+remote: ### Attempting to validate files... ####
+remote:
+remote: .oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+remote:
+remote: Well done! Here is the password for the next level:
+remote: 56a9bf19c63d650ce78e6ec0354ee45e
+remote:
+remote: .oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+remote:
+To ssh://localhost/home/bandit31-git/repo
+ ! [remote rejected] master -> master (pre-receive hook declined)
+error: failed to push some refs to 'ssh://bandit31-git@localhost/home/bandit31-git/repo'
+bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$
+```
