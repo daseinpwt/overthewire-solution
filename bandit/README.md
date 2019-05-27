@@ -685,3 +685,64 @@ Some notes for bandit30 of bandit.
 
 bandit29@bandit:/tmp/tmp.xZhUNEYJdH/repo$
 ```
+
+## level 31
+passwd: 47e603bb428404d265f59c42920d81e5
+
+### knowledge
+git object: commit, tree (folder), blob (file) \
+refs: named references to git objects, the value of a ref is the SHA-1 value of the referenced git object \
+tag: a kind of ref \
+`git pack-refs`: Pack refs in `.git/refs` into a file `.git/packed-refs`. The tags in `.git/refs/tags` will be removed after packing. \
+`git gc`: Pack all objects in `.git/objects` into `.git/objects/pack`.
+
+### solution
+Use `git tag` to check tags. \
+Use `git show` to check the content of the object to which the tag refers.
+```
+bandit30@bandit:~$ mktemp -d
+/tmp/tmp.McQB94K2fP
+bandit30@bandit:~$ cd /tmp/tmp.McQB94K2fP
+bandit30@bandit:/tmp/tmp.McQB94K2fP$ git clone ssh://bandit30-git@localhost/home/bandit30-git/repo
+Cloning into 'repo'...
+
+...
+...
+...
+
+remote: Counting objects: 4, done.
+remote: Total 4 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (4/4), done.
+bandit30@bandit:/tmp/tmp.McQB94K2fP$ ls
+repo
+bandit30@bandit:/tmp/tmp.McQB94K2fP$ cd repo/
+bandit30@bandit:/tmp/tmp.McQB94K2fP/repo$ ls
+README.md
+bandit30@bandit:/tmp/tmp.McQB94K2fP/repo$ git tag
+secret
+bandit30@bandit:/tmp/tmp.McQB94K2fP/repo$ git show secret
+47e603bb428404d265f59c42920d81e5
+bandit30@bandit:/tmp/tmp.McQB94K2fP/repo$
+```
+
+### Reproducing
+To show how the lab was created, we need to understand git objects and git refs. The steps for reproducing the lab:
+```
+mkdir repo
+cd repo
+git init
+echo "just an epmty file... muahaha" > README.md
+echo "47e603bb428404d265f59c42920d81e5" > secret_file
+git add . # after git add, the two files are saved to .git/objects
+find .git/objects/ -type f # get the SHA-1 value of the two objects
+git show <SHA-1> # check which SHA-1 value is the secret_file
+git tag secret <SHA-1_secret_file>
+git reset secret_file # unstaging the secret_file does not affect .git/objects
+rm secret_file # removing the secret_file does not affect .git/objects
+git commit
+git pack-refs # pack the tags into .git/packed-refs and remove .git/refs/tags/secret
+```
+The latecomers can use `git tag` to find the `secret` tag and use `git show` to get the content of `secret_file`.
+
+### Take-home message
+`git add` will permanently add files/folders to `.git/objects`.
