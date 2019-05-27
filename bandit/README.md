@@ -806,7 +806,61 @@ bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$
 passwd: c9c3199ddf4121b10cf581a98d51caee
 
 ### solution
-Use `$0`. Don't ask me why. I don't know.
+Inferred from the results of black-box testing, below (pseudo code) is how the `uppershell` program works:
+1. `cmd = readline()` (the last character of `cmd` is `\n`)
+2. transform all the alphabetic characters in `cmd` to upper case
+3. run `exec("sh -c '%s'" % cmd)` as bandit33
+
+Examples (here we use `sh -c $'%s\n'` to mock the program):
+```
+>> ls
+sh: 1: LS: not found
+------------------------------------------
+bandit33@bandit:~$ sh -c $'LS\n'
+sh: 1: LS: not found
+
+>> echo 22
+sh: 1: ECHO: not found
+------------------------------------------
+bandit33@bandit:~$ sh -c $'ECHO 22\n'
+sh: 1: ECHO: not found
+
+>> $HOME
+sh: 1: /home/bandit32: Permission denied
+------------------------------------------
+bandit33@bandit:~$ sh -c $'$HOME\n'
+sh: 1: /home/bandit32: Permission denied
+
+>> /
+sh: 1: /: Permission denied
+------------------------------------------
+bandit33@bandit:~$ sh -c $'/\n'
+sh: 1: /: Permission denied
+
+>> -o
+sh: 0: Illegal option -O
+------------------------------------------
+bandit33@bandit:~$ sh -c $'-O\n'
+sh: 0: Illegal option -O
+
+>> -vd
+sh: 0: Illegal option -D
+------------------------------------------
+bandit33@bandit:~$ sh -c $'-VD\n'
+sh: 0: Illegal option -D
+
+>> -
+sh: 0: Illegal option -
+
+>>
+------------------------------------------
+bandit33@bandit:~$ sh -c $'-\n'
+sh: 0: Illegal option -
+
+bandit33@bandit:~$
+```
+
+So the solution is to type `$0` and let the `uppershell` run `sh -c $'$0\n'`.
 ```
 WELCOME TO THE UPPERCASE SHELL
 >> $0
