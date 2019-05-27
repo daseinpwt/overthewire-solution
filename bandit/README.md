@@ -801,3 +801,18 @@ To ssh://localhost/home/bandit31-git/repo
 error: failed to push some refs to 'ssh://bandit31-git@localhost/home/bandit31-git/repo'
 bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$
 ```
+
+## level 33
+passwd: c9c3199ddf4121b10cf581a98d51caee
+
+### solution
+Use `$0`. Don't ask me why. I don't know.
+```
+WELCOME TO THE UPPERCASE SHELL
+>> $0
+$ /bin/bash
+bandit33@bandit:~$ cat /etc/bandit_pass/bandit3
+bandit3   bandit30  bandit31  bandit32  bandit33
+bandit33@bandit:~$ cat /etc/bandit_pass/bandit33
+c9c3199ddf4121b10cf581a98d51caee
+```
