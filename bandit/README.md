@@ -554,3 +554,81 @@ README
 bandit27@bandit:/tmp/tmp.fLNqrZBgEo/repo$ cat README
 The password to the next level is: 0ef186ac70e04ea33b4c1853d2526fa2
 ```
+
+## level 29
+passwd: bbc96594b4e001778eee9975372716b2
+
+### solution
+Use `git log` to check commit history. \
+Use `git show` to check the diff of a specific commit.
+```
+bandit28@bandit:~$ mktemp -d
+/tmp/tmp.BlZyRojABl
+bandit28@bandit:~$ cd /tmp/tmp.BlZyRojABl
+bandit28@bandit:/tmp/tmp.BlZyRojABl$ ls
+bandit28@bandit:/tmp/tmp.BlZyRojABl$ git clone ssh://bandit28-git@localhost/home/bandit28-git/repo
+Cloning into 'repo'...
+Could not create directory '/home/bandit28/.ssh'.
+The authenticity of host 'localhost (127.0.0.1)' can't be established.
+ECDSA key fingerprint is SHA256:98UL0ZWr85496EtCRkKlo20X3OPnyPSB5tB5RPbhczc.
+Are you sure you want to continue connecting (yes/no)? yes
+Failed to add the host to the list of known hosts (/home/bandit28/.ssh/known_hosts).
+This is a OverTheWire game server. More information on http://www.overthewire.org/wargames
+
+bandit28-git@localhost's password:
+remote: Counting objects: 9, done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 9 (delta 2), reused 0 (delta 0)
+Receiving objects: 100% (9/9), done.
+Resolving deltas: 100% (2/2), done.
+bandit28@bandit:/tmp/tmp.BlZyRojABl$ ls
+repo
+bandit28@bandit:/tmp/tmp.BlZyRojABl$ cd repo/
+bandit28@bandit:/tmp/tmp.BlZyRojABl/repo$ ls
+README.md
+bandit28@bandit:/tmp/tmp.BlZyRojABl/repo$ cat README.md
+# Bandit Notes
+Some notes for level29 of bandit.
+
+## credentials
+
+- username: bandit29
+- password: xxxxxxxxxx
+bandit28@bandit:/tmp/tmp.BlZyRojABl/repo$ git log
+commit 073c27c130e6ee407e12faad1dd3848a110c4f95
+Author: Morla Porla <morla@overthewire.org>
+Date:   Tue Oct 16 14:00:39 2018 +0200
+
+    fix info leak
+
+commit 186a1038cc54d1358d42d468cdc8e3cc28a93fcb
+Author: Morla Porla <morla@overthewire.org>
+Date:   Tue Oct 16 14:00:39 2018 +0200
+
+    add missing data
+
+commit b67405defc6ef44210c53345fc953e6a21338cc7
+Author: Ben Dover <noone@overthewire.org>
+Date:   Tue Oct 16 14:00:39 2018 +0200
+
+    initial commit of README.md
+bandit28@bandit:/tmp/tmp.BlZyRojABl/repo$ git show 186a
+commit 186a1038cc54d1358d42d468cdc8e3cc28a93fcb
+Author: Morla Porla <morla@overthewire.org>
+Date:   Tue Oct 16 14:00:39 2018 +0200
+
+    add missing data
+
+diff --git a/README.md b/README.md
+index 7ba2d2f..3f7cee8 100644
+--- a/README.md
++++ b/README.md
+@@ -4,5 +4,5 @@ Some notes for level29 of bandit.
+ ## credentials
+
+ - username: bandit29
+-- password: <TBD>
++- password: bbc96594b4e001778eee9975372716b2
+
+bandit28@bandit:/tmp/tmp.BlZyRojABl/repo$
+```
