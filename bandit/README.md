@@ -751,6 +751,7 @@ The latecomers can use `git tag` to find the `secret` tag and use `git show` to 
 passwd: 56a9bf19c63d650ce78e6ec0354ee45e
 
 ### solution
+Check `git push` and `.gitignore`.
 ```
 bandit31@bandit:/tmp/tmp.h5oQZAACwy$ cd repo/
 bandit31@bandit:/tmp/tmp.h5oQZAACwy/repo$ ls
