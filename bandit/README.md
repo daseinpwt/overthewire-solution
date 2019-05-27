@@ -632,3 +632,56 @@ index 7ba2d2f..3f7cee8 100644
 
 bandit28@bandit:/tmp/tmp.BlZyRojABl/repo$
 ```
+
+## level 30
+passwd: 5b90576bedb2cc04c86a9e924ce42faf
+
+### solution
+Use `git branch` and `git checkout` to check and switch to other branches.
+```
+bandit29@bandit:~$ mktemp -d
+/tmp/tmp.xZhUNEYJdH
+bandit29@bandit:~$ cd /tmp/tmp.xZhUNEYJdH
+bandit29@bandit:/tmp/tmp.xZhUNEYJdH$ git clone ssh://bandit29-git@localhost/home/bandit29-git/repo
+Cloning into 'repo'...
+
+...
+...
+...
+
+Receiving objects: 100% (16/16), done.
+Resolving deltas: 100% (2/2), done.
+bandit29@bandit:/tmp/tmp.xZhUNEYJdH$ ls
+repo
+bandit29@bandit:/tmp/tmp.xZhUNEYJdH$ cd repo/
+bandit29@bandit:/tmp/tmp.xZhUNEYJdH/repo$ ls
+README.md
+bandit29@bandit:/tmp/tmp.xZhUNEYJdH/repo$ cat README.md
+# Bandit Notes
+Some notes for bandit30 of bandit.
+
+## credentials
+
+- username: bandit30
+- password: <no passwords in production!>
+
+bandit29@bandit:/tmp/tmp.xZhUNEYJdH/repo$ git branch -a
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/dev
+  remotes/origin/master
+  remotes/origin/sploits-dev
+bandit29@bandit:/tmp/tmp.xZhUNEYJdH/repo$ git checkout dev
+Branch dev set up to track remote branch dev from origin.
+Switched to a new branch 'dev'
+bandit29@bandit:/tmp/tmp.xZhUNEYJdH/repo$ cat README.md
+# Bandit Notes
+Some notes for bandit30 of bandit.
+
+## credentials
+
+- username: bandit30
+- password: 5b90576bedb2cc04c86a9e924ce42faf
+
+bandit29@bandit:/tmp/tmp.xZhUNEYJdH/repo$
+```
