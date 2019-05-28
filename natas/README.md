@@ -168,3 +168,28 @@ Change the value of the cookie. \
 
 Request again to get the password of natas12. \
 ![Level 12 - 7](images/level_12-7.png)
+
+## level 13
+passwd: jmLTY0qiPZBbaKc9341cqPQZBJv7MQbY
+
+### solution
+Check source code. The script will generate a random path `upload/<random_string>.<ext>` and move the uploaded file to that path. The extension `<ext>` is obtained from `$_POST['filename']`. \
+![Level 13 - 1](images/level_13-1.png)
+
+Note that if we access a url ending with `.php` then the server will try to look for a php script, interpre it and return the result. Thus if we can (i) upload a php script and (ii) access it with some url ending with `.php` then we can make the server execute (iii) our script. That's all we need to get the password.
+
+(i) can be achived by passing the script to field `uploadedfile` \
+(ii) can be achived by passing a string "whatever.php" to field `filename` \
+(iii) the script for retriving the password:
+```php
+/* hack.php */
+<?php
+  echo file_get_contents("/etc/natas_webpass/natas13");
+?>
+```
+
+Make an HTTP POST request to upload the dark script. \
+![Level 13 - 2](images/level_13-2.png)
+
+Access the returned url to get the password of natas13. \
+![Level 13 - 3](images/level_13-3.png)
