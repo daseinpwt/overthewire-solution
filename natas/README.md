@@ -178,8 +178,8 @@ Check source code. The script will generate a random path `upload/<random_string
 
 Note that if we access a url ending with `.php` then the server will try to look for a php script, interpre it and return the result. Thus if we can (i) upload a php script and (ii) access it with some url ending with `.php` then we can make the server execute (iii) our script. That's all we need to get the password.
 
-(i) can be achived by passing the script to field `uploadedfile` \
-(ii) can be achived by passing a string "whatever.php" to field `filename` \
+(i) can be achived by passing the script to the field `uploadedfile` \
+(ii) can be achived by passing a string "whatever.php" to the field `filename` \
 (iii) the script for retriving the password:
 ```php
 /* hack.php */
