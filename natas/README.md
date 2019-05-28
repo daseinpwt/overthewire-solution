@@ -49,3 +49,50 @@ Check `/s3cr3t`. Bingo! \
 
 The password of natas4: \
 ![Level 4 - 4](level_4-4.png)
+
+## level 5
+passwd: iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq
+
+### solution
+Use [postman](https://www.getpostman.com/). \
+Add HTTP header 'Referer'. \
+![Level 5](level_5.png)
+
+## level 6
+passwd: aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1
+
+### solution
+Check cookies. \
+![Level 6 - 1](level_6-1.png)
+
+Change the value of the cookie `loggedin` to 1. \
+![Level 6 - 2](level_6-2.png)
+
+Request again. \
+![Level 6 - 3](level_6-3.png)
+
+## level 7
+passwd: 7z3hEENjQtflzgnT29q7wAvMNfZdh0i9
+
+### solution
+Click 'View sourcecode'. We find that `$secret` should be declared in `includes/secret.inc`. \
+![Level 7 - 1](level_7-1.png)
+
+Access `includes/secret.inc`. \
+![Level 7 - 2](level_7-2.png)
+
+Use postman to make HTTP POST request. \
+![Level 7 - 3](level_7-3.png)
+
+## level 8
+passwd: DBfUBfqQG69KvJvJ1iAbMoIpwSNQ9bWe
+
+### solution
+Check page source. We find that there is a `page` parameter for `index.php`. \
+![Level 8 - 1](level_8-1.png)
+
+Try to pass `page=xx`. From the error message we find that the `index.php` script will try to include file with path given by the `page` parameter. \
+![Level 8 - 2](level_8-2.png)
+
+We can exploit the `page` parameter and pass relative path to it. By passing `page=../../../../etc/natas_webpass/natas8` we can get the content of the file `/etc/natas_webpass/natas8`. \
+![Level 8 - 3](level_8-3.png)
