@@ -12,43 +12,43 @@ passwd: gtVrDuiDfck831PqWsLEZy5gyDz1clto
 
 ### solution
 Use Chrome to check the page source code. \
-![Level 1](level_1.png)
+![Level 1](images/level_1.png)
 
 ## level 2
 passwd: ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi
 
 ### solution
 Same as level 1. \
-![Level 2](level_2.png)
+![Level 2](images/level_2.png)
 
 ## level 3
 passwd: sJIJNW6ucpu6HPZ1ZAchaDtwd7oGrD14
 
 ### solution
 Check page source, we find that there is a folder `files`. \
-![Level 3 - 1](level_3-1.png)
+![Level 3 - 1](images/level_3-1.png)
 
 Try to access the folder directly. Something interesting shows up. Click and open `users.txt`. \
-![Level 3 - 2](level_3-2.png)
+![Level 3 - 2](images/level_3-2.png)
 
 The `users.txt` contains the password for natas3. \
-![Level 3 - 3](level_3-3.png)
+![Level 3 - 3](images/level_3-3.png)
 
 ## level 4
 passwd: Z9tkRkWmpt9Qr7XrR5jWRkgOU901swEZ
 
 ### solution
 Check the page source. There is a comment saying that "Not even Google will find it this time". Maybe it has something to do with web crawler. \
-![Level 4 - 1](level_4-1.png)
+![Level 4 - 1](images/level_4-1.png)
 
 Check `robots.txt`. \
-![Level 4 - 2](level_4-2.png)
+![Level 4 - 2](images/level_4-2.png)
 
 Check `/s3cr3t`. Bingo! \
-![Level 4 - 3](level_4-3.png)
+![Level 4 - 3](images/level_4-3.png)
 
 The password of natas4: \
-![Level 4 - 4](level_4-4.png)
+![Level 4 - 4](images/level_4-4.png)
 
 ## level 5
 passwd: iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq
@@ -56,43 +56,56 @@ passwd: iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq
 ### solution
 Use [postman](https://www.getpostman.com/). \
 Add HTTP header 'Referer'. \
-![Level 5](level_5.png)
+![Level 5](images/level_5.png)
 
 ## level 6
 passwd: aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1
 
 ### solution
 Check cookies. \
-![Level 6 - 1](level_6-1.png)
+![Level 6 - 1](images/level_6-1.png)
 
 Change the value of the cookie `loggedin` to 1. \
-![Level 6 - 2](level_6-2.png)
+![Level 6 - 2](images/level_6-2.png)
 
 Request again. \
-![Level 6 - 3](level_6-3.png)
+![Level 6 - 3](images/level_6-3.png)
 
 ## level 7
 passwd: 7z3hEENjQtflzgnT29q7wAvMNfZdh0i9
 
 ### solution
 Click 'View sourcecode'. We find that `$secret` should be declared in `includes/secret.inc`. \
-![Level 7 - 1](level_7-1.png)
+![Level 7 - 1](images/level_7-1.png)
 
 Access `includes/secret.inc`. \
-![Level 7 - 2](level_7-2.png)
+![Level 7 - 2](images/level_7-2.png)
 
 Use postman to make HTTP POST request. \
-![Level 7 - 3](level_7-3.png)
+![Level 7 - 3](images/level_7-3.png)
 
 ## level 8
 passwd: DBfUBfqQG69KvJvJ1iAbMoIpwSNQ9bWe
 
 ### solution
 Check page source. We find that there is a `page` parameter for `index.php`. \
-![Level 8 - 1](level_8-1.png)
+![Level 8 - 1](images/level_8-1.png)
 
 Try to pass `page=xx`. From the error message we find that the `index.php` script will try to include file with path given by the `page` parameter. \
-![Level 8 - 2](level_8-2.png)
+![Level 8 - 2](images/level_8-2.png)
 
 We can exploit the `page` parameter and pass relative path to it. By passing `page=../../../../etc/natas_webpass/natas8` we can get the content of the file `/etc/natas_webpass/natas8`. \
-![Level 8 - 3](level_8-3.png)
+![Level 8 - 3](images/level_8-3.png)
+
+## level 9
+passwd: W0mMhUcRRnG8dcghE4qvk3JA9lGt8nDl
+
+### solution
+Check page source. We find that `$secret` is encoded to a `$encodedSecret`. The encoding function is reversable, so we can write a decoding function to get the value of `$secret`. \
+![Level 9 - 1](images/level_9-1.png)
+
+Write a php script and get the value of `$secret`. \
+![Level 9 - 2](images/level_9-2.png)
+
+Make an HTTP POST request to get the password of natas9. \
+![Level 9 - 3](images/level_9-3.png)
