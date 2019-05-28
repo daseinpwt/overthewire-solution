@@ -101,7 +101,7 @@ We can exploit the `page` parameter and pass relative path to it. By passing `pa
 passwd: W0mMhUcRRnG8dcghE4qvk3JA9lGt8nDl
 
 ### solution
-Check page source. We find that `$secret` is encoded to a `$encodedSecret`. The encoding function is reversable, so we can write a decoding function to get the value of `$secret`. \
+Check page source. We find that `$secret` is encoded to `$encodedSecret`. The encoding function is reversable, so we can write a decoding function to get the value of `$secret`. \
 ![Level 9 - 1](images/level_9-1.png)
 
 Write a php script and get the value of `$secret`. \
