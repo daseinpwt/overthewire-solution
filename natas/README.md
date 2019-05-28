@@ -109,3 +109,13 @@ Write a php script and get the value of `$secret`. \
 
 Make an HTTP POST request to get the password of natas9. \
 ![Level 9 - 3](images/level_9-3.png)
+
+## level 10
+passwd: nOpp1igQAkUzaI1GUUjzn1bFVj7xCNzu
+
+### solution
+Check page source. We find that the php script will execute system command `grep -i $key dictionary.txt`. We can set the value of `$key` by passing value to the parameter `needle`. Consider a command `grep -i '' /etc/natas_webpass/natas10`, it will return the result we want. To make the command return no error, we can use `||` to prevent the remaining part of the command from being executed. The command we want is `grep -i '' /etc/natas_webpass/natas10 || dictionary.txt`. Thus we should pass `'' /etc/natas_webpass/natas10 ||` to `$key`. \
+![Level 10 - 1](images/level_10-1.png)
+
+Make an HTTP GET request to get the password of natas10. \
+![Level 10 - 2](images/level_10-2.png)
