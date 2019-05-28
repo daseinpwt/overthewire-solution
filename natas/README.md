@@ -137,7 +137,7 @@ However, for a more elegant output, we can add `--exclude`. The command becomes 
 passwd: EDXp0pS26wLKHZy1rDBPUZk0RKfLGIR3
 
 ### solution
-Check source code. The associative array with two keys `showpassword` and `bgcolor` is encoded and stored in a cookie `data`. Our target is to figure out the encoding procedure and set the cookie `data` to a value that can be decoded to `array("showpassword"=>"yes", "bgcolor"=>"<whatever>")` by the website php script. \
+Check source code. The associative array with two keys `showpassword` and `bgcolor` is encoded and stored in a cookie `data`. Our target is to figure out the encoding procedure and set the cookie `data` to a value which will be decoded to `array("showpassword"=>"yes", "bgcolor"=>"<whatever>")`. \
 ![Level 12 - 1](images/level_12-1.png)
 
 Get the value of the cookie corresponding to `array("showpassword"=>"no", "bgcolor"=>"#ffffff")`. \
