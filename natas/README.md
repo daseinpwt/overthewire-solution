@@ -193,3 +193,28 @@ Make an HTTP POST request to upload the dark script. \
 
 Access the returned url to get the password of natas13. \
 ![Level 13 - 3](images/level_13-3.png)
+
+## level 14
+passwd: Lg96M10TdfaPyVBkJdjymbllQ5L6qdl1
+
+### solution
+Check the source code. The script will now check whether the uploaded file is an image file. The checking is done by the function `exif_imagetype`. \
+![Level 14 - 1](images/level_14-1.png)
+
+Check the source code of `exif_imagetype` on GitHub. It will call `php_getimagetype`. \
+![Level 14 - 2](images/level_14-2.png)
+
+Check the source code of `php_getimagetype`. It will at first read 3 bytes of the file and check whether the file is a `gif` file or a `jpg` file. \
+![Level 14 - 3](images/level_14-3.png)
+
+Check the value of `php_sig_jpg`. The value is `ffd8ff` in hex format. \
+![Level 14 - 4](images/level_14-4.png)
+
+We only need to add the 3 bytes to the beginnning of our dark script. \
+![Level 14 - 5](images/level_14-5.png)
+
+Make an HTTP POST request to upload the dark script. \
+![Level 14 - 6](images/level_14-6.png)
+
+Access the returned url to get the password of natas14. \
+![Level 14 - 7](images/level_14-7.png)
