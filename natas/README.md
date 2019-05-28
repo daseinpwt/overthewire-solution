@@ -154,7 +154,7 @@ s2 == xor_encrypt(s1)
 ```
 By comparing s1 and s2, we should be able to figure out the `$key` used by the function `xor_encrypt`.
 
-Write a script to print out s1 and s2: \
+A script to print out s1 and s2: \
 ![Level 12 - 3](images/level_12-3.png)
 
 By reformatting the output and focus on one part of it, we can deduce the `$key`. \
