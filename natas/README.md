@@ -119,3 +119,17 @@ Check page source. We find that the php script will execute system command `grep
 
 Make an HTTP GET request to get the password of natas10. \
 ![Level 10 - 2](images/level_10-2.png)
+
+## level 11
+passwd: U82q5TCMMQ9xuFoI3dYX61s7OZD9JKoK
+
+### solution
+Check page source. We find that only `;`, `&` and `|` will be detected. \
+![Level 11 - 1](images/level_11-1.png)
+
+Simply removing the `||` and changing the command to `grep -i '' /etc/natas_webpass/natas11 dictionary.txt` works already. \
+![Level 11 - 2](images/level_11-2.png)
+
+However, for a more elegant output, we can add `--exclude`. The command becomes `grep -i '' /etc/natas_webpass/natas11 --exclude dictionary.txt`. \
+![Level 11 - 3](images/level_11-3.png)
+
