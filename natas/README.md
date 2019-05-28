@@ -20,6 +20,8 @@ passwd: ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi
 ### solution
 Same as level 1. \
 ![Level 2](images/level_2_tt.png)
+![Level 2](images/level_2_gg.png)
+![Level 2](images/level_2_hh.png)
 
 ## level 3
 passwd: sJIJNW6ucpu6HPZ1ZAchaDtwd7oGrD14
