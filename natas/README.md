@@ -133,3 +133,51 @@ Simply removing the `||` and changing the command to `grep -i '' /etc/natas_webp
 However, for a more elegant output, we can add `--exclude`. The command becomes `grep -i '' /etc/natas_webpass/natas11 --exclude dictionary.txt`. \
 ![Level 11 - 3](images/level_11-3.png)
 
+## level 12
+passwd: EDXp0pS26wLKHZy1rDBPUZk0RKfLGIR3
+
+### solution
+Check source code. The associative array with two keys `showpassword` and `bgcolor` is encoded and stored in a cookie `data`. Our target is to figure out the encoding procedure and set the cookie `data` to a value that can be decoded to `array("showpassword"=>"yes", "bgcolor"=>"<whatever>")` by the website php script. \
+![Level 12 - 1](images/level_12-1.png)
+
+Get the value of the cookie corresponding to `array("showpassword"=>"no", "bgcolor"=>"#ffffff")`. \
+![Level 12 - 2](images/level_12-2.png)
+
+Let
+```
+s1 -> json_encode($defaultData)
+s2 -> base64_decode($_COOKIE['data'])
+```
+We have
+```
+s2 == xor_encrypt(s1)
+```
+By comparing s1 and s2, we should be able to figure out the `$key` used by the function `xor_encrypt`.
+
+Below is a script which prints out s1 and s2.
+```php
+<?php
+$defaultData = array( "showpassword"=>"no", "bgcolor"=>"#ffffff");
+$jsonEncodedData = json_encode($defaultData);
+echo $jsonEncodedData . "\n" ;
+echo bin2hex($jsonEncodedData) . "\n";
+
+$cookieData = "ClVLIh4ASCsCBE8lAxMacFMZV2hdVVotEhhUJQNVAmhSEV4sFxFeaAw";
+$tempData = base64_decode($cookieData);
+echo bin2hex($tempData) . "\n";
+```
+
+The ouput: \
+![Level 12 - 3](images/level_12-3.png)
+
+By reformatting the output and focus on one part of it, we can deduce the `$key`. \
+![Level 12 - 4](images/level_12-4.png)
+
+Test the `$key` and use the `$key` to generate the cookie we want. \
+![Level 12 - 5](images/level_12-5.png)
+
+Change the value of the cookie. \
+![Level 12 - 6](images/level_12-6.png)
+
+Request again to get the password of natas12. \
+![Level 12 - 7](images/level_12-7.png)
