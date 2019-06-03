@@ -218,3 +218,13 @@ Make an HTTP POST request to upload the dark script. \
 
 Access the returned url to get the password of natas14. \
 ![Level 14 - 7](images/level_14-7.png)
+
+## level 15
+passwd: AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J
+
+### solution
+Check the source code. The login is based on mysql database query. We can do typical SQL injection. \
+![Level 15 - 1](images/level_15-1.png)
+
+Make an HTTP GET request to bypass the login check. The password is `" or 1=1 -- 1`. The last character '1' is needed because we need a space after the comment symbol '--'. \
+![Level 15 - 2](images/level_15-2.png)
