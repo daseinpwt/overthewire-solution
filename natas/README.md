@@ -280,7 +280,7 @@ The result:
 passwd: 8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq9cw
 
 ### solution
-Check the source code. Note the differnce between level 17 and level 10: \
+Check the source code. Note the difference between level 17 and level 10: \
 (i) the `$key` is wrapped in double quotes. \
 (ii) we can not use `` ` ``, `\`, `'`, `"` in addtion to `;`, `|`, `$`, `[`, `]`
 
