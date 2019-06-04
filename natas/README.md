@@ -290,7 +290,7 @@ Luckily, we can still use [Command Substitution](http://www.tldp.org/LDP/abs/htm
 
 __Observation A__: Given a character `<ch>`, we can use the command `grep -i "<ch>" dictionary.txt` to check whether `<ch>` is alphabetic.
 
-__Observation B__: Given a password string `s`, let `s[i]` be its ith character. (i) If `s[i]` is alphabetic, and for a letter `c` in `a-zA-Z`, replacing all `c` in `s` with `_` makes `s[i]` not alphabetic, then `s[i]` equals `c`. (ii) Similarly, if `s[i]` is not alphabetic (which in our case will be numeric), and for a digit `d` in `0-9`, replacing all `d` in `s` with `a` makes `s[i]` alphabetic, then `s[i]` equals `d`.
+__Observation B__: Given a password string `s`, let `s[i]` be its ith character. (i) If `s[i]` is alphabetic, and for a letter `c` in `a-zA-Z`, replacing all `c` in `s` with `_` makes `s[i]` not alphabetic, then `s[i]` equals `c`. (ii) Similarly, if `s[i]` is not alphabetic, and for a digit `d` in `0-9`, replacing all `d` in `s` with `a` makes `s[i]` alphabetic, then `s[i]` equals `d`.
 
 Combining Observation A and B, we can use following command to determine the characters in the password string:
 ```
