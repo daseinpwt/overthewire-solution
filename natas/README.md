@@ -451,4 +451,4 @@ passwd: oGgWAJ7zcGT28vYazGo4rkhOPDhBu34T
 
 ### solution
 The User-agent header.
-PHP `include` will interpret PHP code in `<?php ?>`.
+PHP `include` will interpret PHP code between `<?php` and `?>`.
