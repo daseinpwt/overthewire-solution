@@ -274,3 +274,79 @@ for i in range(0, 32):
 
 The result:
 ![Level 16 - 4](images/level_16-4.png)
+
+## level 17
+passwd: 8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq9cw
+
+### solution
+`$()` \
+`tr` \
+`expr substr <str> start length`
+
+## level 18
+passwd: xvKIqDjy4OPv7wCRgDlmj0pFsCsDjhdP
+
+### solution
+time-based SQL injection.
+
+## level 19
+passwd: 4IwIrekcuZlA9OsjOkoUtwU6lhokCPYs
+
+### solution
+session scan.
+
+## level 20
+passwd: eofm3Wsshxc5bwtVnEuGIlr7ivb9KABF
+
+### solution
+meaning guessing.
+ascii hex.
+
+## level 21
+passwd: IFekPyrQXftziDEsUr3x21sYuahypdgJ
+
+### solution
+php session storage.
+url encode:
+  line feed:  %0A
+  space    :  %20
+
+'myread' is called by `session_start()`
+'mywrite' is called at the end of interpretation, outside the html (see Level_21-6.png)
+
+## level 22
+passwd: chG9fbe1Tq2eWVMgjYYD1MsfIvN461kJ
+
+### solution
+colocated -> sessions are stored at the same place
+
+if we can inject `admin=1` to a session belongs to B, then we can use that session id to access A, making A read all the session variables we set in B.
+
+## level 23
+passwd: D0vlad33nQF0Hz2EP255TP5wSW9ZsRSE
+
+### solution
+The `header()` function adds HTTP header to the HTTP response.
+The agent will detect the `Location` header and redirect automatically.
+We can disable auto-redirection of the agent (browser, postman, etc.) to obtain the password.
+
+## level 24
+passwd: OsRmXFguozKpTZZ5X14zNO43379LZveg
+
+### solution
+PHP String conversion to numbers.
+https://www.php.net/manual/en/language.types.string.php#language.types.string.conversion
+
+## level 25
+passwd: GHF6X7YwACaYYssHVY05cFq83hRktl4c
+
+### solution
+PHP url parser. Passing array parameter via query string.
+`strcmp` will return NULL if not all the parameters are strings.
+
+## level 26
+passwd: oGgWAJ7zcGT28vYazGo4rkhOPDhBu34T
+
+### solution
+The User-agent header.
+PHP `include` will interpret PHP code in `<?php ?>`.
