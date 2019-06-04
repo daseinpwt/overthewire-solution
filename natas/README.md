@@ -298,7 +298,7 @@ grep -i "$(expr substr $(tr <sc> <dc> < /etc/natas_webpass/natas17) <pos> 1)" di
 ```
 `<sc>`: the character to be replaced \
 `<dc>`: the new character \
-`<pos>`: the postion of the character being tested (one based)
+`<pos>`: the position of the character being tested (one based)
 
 The above command transforms the password string, extracts the character at postion `<pos>` from the transformed string, and tests whether the character is alphabetic.
 
